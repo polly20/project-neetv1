@@ -13,7 +13,7 @@ class QuestionController extends Controller
     //
 
     public function index() {
-      return view("admin.teacher.createquestion");
+      return view("admin.teacher.createQuestion");
     }
 
     public function question_exec(Request $request) {
@@ -25,13 +25,13 @@ class QuestionController extends Controller
           'Id' => $q->id,
           'Question' => $request->question
         );
-        return view("admin.teacher.createanswer", compact('question'));
+        return view("admin.teacher.createAnswer", compact('question'));
       }
-      return view("admin.teacher.createquestion");
+      return view("admin.teacher.createQuestion");
     }
 
     public function answer() {
-        return view("admin.teacher.createanswer");
+        return view("admin.teacher.createAnswer");
     }
 
     public function answer_exec(Request $request) {
@@ -50,7 +50,7 @@ class QuestionController extends Controller
       }
 
 
-      return view("admin.teacher.createquestion");
+      return view("admin.teacher.createQuestion");
     }
 
     public function get_biology($id) {
