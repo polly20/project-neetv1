@@ -12,7 +12,13 @@ class QuestionController extends Controller
 {
     //
 
+
     public function index() {
+
+      $h =  new HelperController("pogi");
+
+      // dd($h->get_sample_a("charles nga ay"));
+
       return view("admin.teacher.createQuestion");
     }
 
@@ -25,9 +31,11 @@ class QuestionController extends Controller
           'Id' => $q->id,
           'Question' => $request->question
         );
-        return view("admin.teacher.createAnswer", compact('question'));
+        return redirect('/v1/teacher/create-answer');
+        // return view("admin.teacher.createAnswer", compact('question'));
       }
-      return view("admin.teacher.createQuestion");
+      return redirect('/v1/teacher/create-answer');
+      // return view("admin.teacher.createQuestion");
     }
 
     public function answer() {
@@ -48,7 +56,6 @@ class QuestionController extends Controller
         $q->right_answer = $r_answer;
         $q->save();
       }
-
 
       return view("admin.teacher.createQuestion");
     }

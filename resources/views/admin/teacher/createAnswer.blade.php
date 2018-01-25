@@ -5,7 +5,7 @@
   <h1>Your question</h1>
   <p class="lead">{!! $question["Question"] !!}</p>
 
-  <form action="/v1/teacher/answer/execute">
+  <form action="/v1/teacher/answer/execute"  method="get">
 
     <input type="text" class="form-control" id="id" name="question" value="{!! $question["Id"] !!}">
 

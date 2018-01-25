@@ -27,7 +27,7 @@ Route::get("/v1/add-student", "StudentController@add_student");
 
 Route::get("/v1/teacher/create-question", "QuestionController@index");
 
-Route::get("/v1/teacher/question/execute", "QuestionController@question_exec");
+Route::post("/v1/teacher/question/execute", "QuestionController@question_exec");
 
 Route::get("/v1/teacher/create-answer", "QuestionController@answer");
 
