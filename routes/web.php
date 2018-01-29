@@ -23,16 +23,4 @@ Route::get("/{name?}", function($name = null) {
     return ["Name" => $name];
 });
 
-Route::get("/v1/add-student", "StudentController@add_student");
-
-Route::get("/v1/teacher/create-question", "QuestionController@index");
-
-Route::post("/v1/teacher/question/execute", "QuestionController@question_exec");
-
-Route::get("/v1/teacher/create-answer", "QuestionController@answer");
-
-Route::get("/v1/teacher/answer/execute", "QuestionController@answer_exec");
-
-Route::get("/v1/teacher/get-biology/{id}", "QuestionController@get_biology");
-
-Route::get('/v1/user/{id}', 'Hellocontroller@show');
+Route::get('/student/target', 'StudentController@set_student_target');
