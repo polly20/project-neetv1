@@ -16,5 +16,9 @@ class HelperController extends Controller
 
     public function get_sample_a($name) {
       return $name . " " . HelperController::$sampleA;
+
+
     }
+
+    public fann_get_cascade_activation_functions
 }
