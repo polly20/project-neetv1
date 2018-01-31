@@ -50,7 +50,7 @@ class StudentController extends Controller
 
       $target = (int)$request->target;
 
-      if($target <=0 || $target > 100) {
+      if($target < 50 || $target > 100) {
         return array(
           'status' => 404,
           'message' => "The total percent is valid"
