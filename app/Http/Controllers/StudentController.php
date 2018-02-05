@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Student;
+use App\Criteria;
 use Carbon\Carbon;
 
 class StudentController extends Controller
@@ -15,7 +16,11 @@ class StudentController extends Controller
 
     public static $total_subjects = 3;
 
-    public static $total_questions = 10000;
+    public static $total_questions = 14000;
+
+
+
+
 
     public function add_student(Request $request) {
         // return $request;
@@ -48,47 +53,74 @@ class StudentController extends Controller
 
     public function set_student_target(Request $request) {
 
-      $target = (int)$request->target;
+      $target_days = 30;
+      $target_percentage = 90;
 
-      if($target < 50 || $target > 100) {
+      //Variables below are admin pre-set
+      $question_per_day = 100;
+      $total_set_questions = 3000;
+      $l1_question_per_100percent = 850;
+      $l2_question_per_100percent = 750;
+      $l3_question_per_100percent = 800;
+      $l4_question_per_100percent = 600;
+
+
+      //$target_percentage = (int)$request->$target_percentage;
+
+      if($target_percentage < 50 || $target_percentage > 100) {
         return array(
           'status' => 404,
-          'message' => "The total percent is valid"
+          'message' => "The total percent is invalid!"
         );
       }
 
-      $t = $this::$total_percent / $this::$total_subjects; //round( $target / 3 ); // divide by 3 subjects
+      //$t = $this::$total_percent / $this::$total_subjects; //round( $target / 3 ); // divide by 3 subjects
 
-      $s = $this::$total_questions * ($target / 100);
+      $s1 = $l1_question_per_100percent * ($target_percentage / 100);
+      $s2 = $l2_question_per_100percent * ($target_percentage / 100);
+      $s3 = $l3_question_per_100percent * ($target_percentage / 100);
+      $s4 = $l4_question_per_100percent * ($target_percentage / 100);
 
+      $tt = $total_set_questions * ($target_percentage / 100);
       // 33.33% round of into 34% percent divived by 3 levels
 
-      $l1 = round( $s * 0.12 );
-      $l2 = round( $s * 0.12 );
-      $l3 = round( $s * 0.10 );
-      $per_day = ($l1 + $l2 + $l3) / 30;
+      //$l1 = round( $s1 * 0.15 );
+      //$l2 = round( $s2 * 0.22 );
+      //$l3 = round( $s3 * 0.28 );
+      //$l4 = round( $s4 * 0.35 );
+
+      $per_day = ($l1_question_per_100percent + $l2_question_per_100percent + $l3_question_per_100percent + $l4_question_per_100percent) / 30;
 
       $set_ = array(
-        "Total_Question_Allocated" => $this::$total_questions,
-        "Total_Target" => $target . "%",
-        "Total_Target_Question" => $s,
+        "Total Allocated Questions" => $total_set_questions,
+        "Total Target %" => $target_percentage . "%",
+        "Total Target Question" => $tt,
         "Level_1" => array(
-          "percentage" => "12%",
-          "total" => $l1
+          //"percentage" => "15%",
+          "total" => $s1
         ),
         "Level_2" => array(
-          "percentage" => "12%",
-          "total" => $l2
+          //"percentage" => "22%",
+          "total" => $s2
         ),
         "Level_3" => array(
-          "percentage" => "10%",
-          "total" => $l3
+          //"percentage" => "28%",
+          "total" => $s3
         ),
-        "Total_Questions_per_day" => round($per_day),
-        "Total_Questions_for_30days" => $l1 + $l2 + $l3
-      );
+        "Level_4" => array(
+          //"percentage" => "35%",
+          "total" => $s4
+        ),
 
+        "You have" => $target_days . " days left to finish the pre-test"
+        //"Minimum Questions per day" => round($per_day),
+        //"Total_Questions_for_30days" => $l1 + $l2 + $l3 + $l4
+    );
       return $set_;
+}
 
-    }
+public function student_result($id=1) {
+  $b = Criteria::where("ID", (int)$id)->get(['category', 'description']);
+  return ["data" => $b];
+}
 }

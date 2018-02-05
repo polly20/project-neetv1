@@ -24,3 +24,4 @@ Route::get("/{name?}", function($name = null) {
 });
 
 Route::get('/student/target', 'StudentController@set_student_target');
+Route::get('/student/result', 'StudentController@student_result');
