@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Student;
 use App\Criteria;
 use Carbon\Carbon;
+use DB;
 
 class StudentController extends Controller
 {
@@ -17,10 +18,6 @@ class StudentController extends Controller
     public static $total_subjects = 3;
 
     public static $total_questions = 14000;
-
-
-
-
 
     public function add_student(Request $request) {
         // return $request;
@@ -115,12 +112,26 @@ class StudentController extends Controller
         "You have" => $target_days . " days left to finish the pre-test"
         //"Minimum Questions per day" => round($per_day),
         //"Total_Questions_for_30days" => $l1 + $l2 + $l3 + $l4
-    );
+      );
       return $set_;
-}
+    }
 
-public function student_result($id=1) {
-  $b = Criteria::where("ID", (int)$id)->get(['category', 'description']);
-  return ["data" => $b];
-}
+    public function student_result($id=1) {
+      $b = Criteria::where("ID", (int)$id)->get(['category', 'description']);
+      return ["data" => $b];
+    }
+
+    public function charles_sample()
+    {
+      // $data = array(
+      //   "name" => "Sample",
+      //   "work_days" => "27",
+      //   "work_days_a_week" => "5"
+      // );
+
+      $db = DB::select("SELECT * FROM tbl_total_questions;");
+      return $db;
+
+      // return view('charles', compact('data'));
+    }
 }

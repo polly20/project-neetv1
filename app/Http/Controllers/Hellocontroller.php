@@ -15,6 +15,12 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        return view('user.profile', ['user' => Users::findOrFail($id)]);
+      $data = array(
+        "name" => "Charles",
+        "work_days" => "27",
+        "work_days_a_week" => "5",
+      )
+
+      return view('charles', compact('data'));
     }
 }
