@@ -9,6 +9,11 @@
         <title>Neet101 Admin 2.0</title>
         @yield('css')
         <link rel="stylesheet" href="{{ asset('css/app.min.css', $ssl) }}">
+
+        <script type="text/javascript" async
+          src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_CHTML">
+        </script>
+
     </head>
 
     <body data-sa-theme="1">
@@ -29,13 +34,6 @@
                 <div class="logo hidden-sm-down">
                     <h1><a href="index.html">NEET101 Admin 2.0</a></h1>
                 </div>
-
-                <form class="search">
-                    <div class="search__inner">
-                        <input type="text" class="search__text" placeholder="Search for people, files, documents...">
-                        <i class="zmdi zmdi-search search__helper" data-sa-action="search-close"></i>
-                    </div>
-                </form>
 
                 <ul class="top-nav">
                     <li class="hidden-xl-up"><a href="" data-sa-action="search-open"><i class="zmdi zmdi-search"></i></a></li>
@@ -210,113 +208,16 @@
                     </li>
 
                     <li class="dropdown hidden-xs-down">
-                        <a href="" data-toggle="dropdown"><i class="zmdi zmdi-check-circle"></i></a>
-
-                        <div class="dropdown-menu dropdown-menu-right dropdown-menu--block" role="menu">
-                            <div class="dropdown-header">Tasks</div>
-
-                            <div class="listview listview--hover">
-                                <a href="" class="listview__item">
-                                    <div class="listview__content">
-                                        <div class="listview__heading">HTML5 Validation Report</div>
-
-                                        <div class="progress mt-1">
-                                            <div class="progress-bar bg-primary" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-                                        </div>
-                                    </div>
-                                </a>
-
-                                <a href="" class="listview__item">
-                                    <div class="listview__content">
-                                        <div class="listview__heading">Google Chrome Extension</div>
-
-                                        <div class="progress mt-1">
-                                            <div class="progress-bar bg-warning" style="width: 43%" aria-valuenow="43" aria-valuemin="0" aria-valuemax="100"></div>
-                                        </div>
-                                    </div>
-                                </a>
-
-                                <a href="" class="listview__item">
-                                    <div class="listview__content">
-                                        <div class="listview__heading">Social Intranet Projects</div>
-
-                                        <div class="progress mt-1">
-                                            <div class="progress-bar bg-success" style="width: 20%" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
-                                        </div>
-                                    </div>
-                                </a>
-
-                                <a href="" class="listview__item">
-                                    <div class="listview__content">
-                                        <div class="listview__heading">Bootstrap Admin Template</div>
-
-                                        <div class="progress mt-1">
-                                            <div class="progress-bar bg-info" style="width: 60%" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
-                                        </div>
-                                    </div>
-                                </a>
-
-                                <a href="" class="listview__item">
-                                    <div class="listview__content">
-                                        <div class="listview__heading">Youtube Client App</div>
-
-                                        <div class="progress mt-1">
-                                            <div class="progress-bar bg-danger" style="width: 80%" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
-                                        </div>
-                                    </div>
-                                </a>
-
-                                <a href="" class="view-more">View all Tasks</a>
-                            </div>
-                        </div>
-                    </li>
-
-                    <li class="dropdown hidden-xs-down">
-                        <a href="" data-toggle="dropdown"><i class="zmdi zmdi-apps"></i></a>
-
-                        <div class="dropdown-menu dropdown-menu-right dropdown-menu--block" role="menu">
-                            <div class="row app-shortcuts">
-                                <a class="col-4 app-shortcuts__item" href="">
-                                    <i class="zmdi zmdi-calendar"></i>
-                                    <small class="">Calendar</small>
-                                </a>
-                                <a class="col-4 app-shortcuts__item" href="">
-                                    <i class="zmdi zmdi-file-text"></i>
-                                    <small class="">Files</small>
-                                </a>
-                                <a class="col-4 app-shortcuts__item" href="">
-                                    <i class="zmdi zmdi-email"></i>
-                                    <small class="">Email</small>
-                                </a>
-                                <a class="col-4 app-shortcuts__item" href="">
-                                    <i class="zmdi zmdi-trending-up"></i>
-                                    <small class="">Reports</small>
-                                </a>
-                                <a class="col-4 app-shortcuts__item" href="">
-                                    <i class="zmdi zmdi-view-headline"></i>
-                                    <small class="">News</small>
-                                </a>
-                                <a class="col-4 app-shortcuts__item" href="">
-                                    <i class="zmdi zmdi-image"></i>
-                                    <small class="">Gallery</small>
-                                </a>
-                            </div>
-                        </div>
-                    </li>
-
-                    <li class="dropdown hidden-xs-down">
                         <a href="" data-toggle="dropdown"><i class="zmdi zmdi-more-vert"></i></a>
 
                         <div class="dropdown-menu dropdown-menu-right">
-                            <a href="" class="dropdown-item" data-sa-action="fullscreen">Fullscreen</a>
-                            <a href="" class="dropdown-item">Clear Local Storage</a>
-                            <a href="" class="dropdown-item">Settings</a>
+                          <a class="dropdown-item" href="">View Profile</a>
+                          <a class="dropdown-item" href="">Settings</a>
+                          <a class="dropdown-item" href="">Logout</a>
                         </div>
+
                     </li>
 
-                    <!-- <li class="hidden-xs-down">
-                        <a href="" class="top-nav__themes" data-sa-action="aside-open" data-sa-target=".themes"><i class="zmdi zmdi-palette"></i></a>
-                    </li> -->
                 </ul>
 
                 <div class="clock hidden-md-down">
@@ -432,5 +333,8 @@
 
         <!-- App functions and actions -->
         <script src="{{ asset('js/app.min.js', $ssl) }}"></script>
+
+
+
     </body>
 </html>

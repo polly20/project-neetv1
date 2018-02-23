@@ -67,7 +67,7 @@
     </div>
 
     <footer class="footer hidden-xs-down">
-        <p>© Super Admin Responsive. All rights reserved.</p>
+        <p>© NEET101 Admin 2.0. All rights reserved.</p>
 
         <ul class="nav footer__nav">
             <a class="nav-link" href="">Homepage</a>

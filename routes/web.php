@@ -20,11 +20,15 @@ Route::get('/dashboard', 'HomeController@Index');
 
 Route::get('/question/subject', 'HomeController@Question_Subject');
 
-Route::get('/question/subject/{subject}', 'HomeController@Question_Subject');
+Route::get('/question/subject/{subject}', 'HomeController@Question_Add');
 
 Route::get('/student/result', 'StudentController@student_result');
 
 Route::get('/charles/sample', 'StudentController@charles_sample');
+
+Route::get('/charles/sample/mathjs', 'QuestionController@get_mathjs');
+
+//get_mathjs
 
 Route::get('/charles/get', function() {
   return ["sample" => 200];

@@ -22,6 +22,16 @@ class QuestionController extends Controller
       return view("admin.teacher.createQuestion");
     }
 
+
+    public function get_mathjs(Request $request) {
+
+      $array = array(
+        "val" => $request->val
+      );
+
+      return view("sample", compact('array'));
+    }
+
     public function question_exec(Request $request) {
       $q = new Question();
       $q->subject_id = $request->subject;

@@ -14,4 +14,8 @@ class HomeController extends Controller
     public function Question_Subject() {
       return view('admin.question.subject');
     }
+
+    public function Question_Add($subject) {
+      return view('admin.question.add_question');
+    }
 }
