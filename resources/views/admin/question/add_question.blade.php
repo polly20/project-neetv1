@@ -87,11 +87,8 @@
                            <?php $value = 'When $a \ne 0$, there are two solutions to \(ax^2 + bx + c = 0\) and they are $$x = {-b \pm \sqrt{b^2-4ac} \over 2a}.$$';?>
 
                            <textarea class="form-control" id="textareaA" name="options[]" placeholder="Let us type some lorem ipsum....">{!! $value !!}</textarea>
-
                            <div id="previewA">
-
                            </div>
-
                            <i class="form-group__bar"></i>
                          </div>
                        </div>
@@ -147,7 +144,6 @@
 @endsection
 
 @section('scripts')
-
 <script src="{{ asset('js/jquery.min.js', $ssl) }}"></script>
 <script src="{{ asset('popper.js/dist/umd/popper.min.js', $ssl) }}"></script>
 <script src="{{ asset('js/bootstrap.min.js', $ssl) }}"></script>
@@ -157,11 +153,11 @@
 <script src="{{ asset('js/sweetalert2.min.js', $ssl) }}"></script>
 <script src="https://cdn.ckeditor.com/ckeditor5/1.0.0-alpha.2/classic/ckeditor.js"></script>
 <script>
-  ClassicEditor
-       .create( document.querySelector( '#textareaA' ) )
-       .catch( error => {
-           console.error( error );
-       } );
+ //  ClassicEditor
+ // .create( document.querySelector( '#textareaA' ) )
+ // .catch( error => {
+ //     console.error( error );
+ //   } );
 
   $(document).ready(function() {
 
@@ -179,15 +175,10 @@
       var sample = $("#textareaA").val();
 
       $.get('/charles/sample/mathjs?val=' + sample, function(data) {
-
-        // console.log(data);
-
         $("#previewA").html(data);
-
       })
 
       return false;
-
       if(count >= letters.length) {
         return false;
       }
@@ -262,7 +253,6 @@
     });
 
   });
-
   function warning_alert(message) {
     swal({
         title: 'Not a good sign...',
