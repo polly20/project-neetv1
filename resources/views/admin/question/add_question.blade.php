@@ -82,13 +82,15 @@
                    <div class="tab-content">
                        <div class="tab-pane fade active show" id="textA" role="tabpanel" aria-expanded="true">
                          <div class="form-group">
-                           <p>Type your answer</p>
+                           <p>Type Your Answer</p>
 
                            <?php $value = 'When $a \ne 0$, there are two solutions to \(ax^2 + bx + c = 0\) and they are $$x = {-b \pm \sqrt{b^2-4ac} \over 2a}.$$';?>
+                           <textarea class="form-control" id="textareaA" name="options[]" rows="10" placeholder="Let us type some lorem ipsum....">{!! $value !!}</textarea>
 
-                           <textarea class="form-control" id="textareaA" name="options[]" placeholder="Let us type some lorem ipsum....">{!! $value !!}</textarea>
-                           <div id="previewA">
-                           </div>
+                           <br />
+                           <p>Type Your Answer Preview</p>
+                           <iframe id="iframePreviewA" style="width: 100%;" frameBorder="0"></iframe>
+
                            <i class="form-group__bar"></i>
                          </div>
                        </div>
@@ -150,7 +152,7 @@
 <script src="{{ asset('js/jquery.scrollbar.min.js', $ssl) }}"></script>
 <script src="{{ asset('js/jquery-scrollLock.min.js', $ssl) }}"></script>
 <script src="{{ asset('js/autosize.min.js', $ssl) }}"></script>
-<script src="{{ asset('js/sweetalert2.min.js', $ssl) }}"></script>
+<script src="{{ asset('js/sweetalert2.all.js', $ssl) }}"></script>
 <script src="https://cdn.ckeditor.com/ckeditor5/1.0.0-alpha.2/classic/ckeditor.js"></script>
 <script>
  //  ClassicEditor
@@ -172,13 +174,9 @@
     var count = 1;
     $('#btnAddOption').click(function() {
 
-      var sample = $("#textareaA").val();
-
-      $.get('/charles/sample/mathjs?val=' + sample, function(data) {
-        $("#previewA").html(data);
-      })
-
+      one_time_password();
       return false;
+
       if(count >= letters.length) {
         return false;
       }
@@ -247,12 +245,19 @@
       count++;
     });
 
-    $( "#textareaA" ).change(function() {
-
-
+    popuplate_preview();
+    $( "#textareaA" ).keyup(function() {
+      popuplate_preview();
     });
 
   });
+
+  function popuplate_preview() {
+    var sample = $("#textareaA").val();
+    var url = '/charles/sample/mathjs?val=' + sample;
+    $("#iframePreviewA").attr("src", url);
+  }
+
   function warning_alert(message) {
     swal({
         title: 'Not a good sign...',
@@ -261,6 +266,37 @@
         buttonsStyling: false,
         confirmButtonClass: 'btn btn-sm btn-light',
         background: 'rgba(0, 0, 0, 0.96)'
+    })
+  }
+
+  function one_time_password() {
+    swal({
+      title: 'Submit email to run ajax request',
+      input: 'text',
+      showCancelButton: true,
+      confirmButtonText: 'Submit',
+      showLoaderOnConfirm: true,
+      preConfirm: (mobile) => {
+        return new Promise((resolve) => {
+          setTimeout(() => {
+            if (mobile === 'taken@example.com') {
+              swal.showValidationError(
+                'This email is already taken.'
+              )
+            }
+            resolve()
+          }, 2000)
+        })
+      },
+      allowOutsideClick: () => !swal.isLoading()
+    }).then((result) => {
+      if (result.value) {
+        swal({
+          type: 'success',
+          title: 'Ajax request finished!',
+          html: 'Submitted email: ' + result.value
+        })
+      }
     })
   }
 </script>
