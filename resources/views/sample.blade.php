@@ -21,7 +21,7 @@
   <body>
     <!-- <br /> -->
 
-    {{ $array["val"] }}
+    {{ $array["answer"] }}
 
     <!-- <br /> -->
   </body>

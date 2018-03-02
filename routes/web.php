@@ -26,7 +26,9 @@ Route::get('/student/result', 'StudentController@student_result');
 
 Route::get('/charles/sample', 'StudentController@charles_sample');
 
-Route::get('/charles/sample/mathjs', 'QuestionController@get_mathjs');
+Route::get('/charles/sample/mathjs/post', 'QuestionController@post_mathjs');
+
+Route::get('/charles/sample/mathjs/get', 'QuestionController@get_mathjs');
 
 //get_mathjs
 

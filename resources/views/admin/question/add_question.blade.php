@@ -247,14 +247,33 @@
 
     popuplate_preview();
     $( "#textareaA" ).keyup(function() {
-      popuplate_preview();
+      update_preview();
     });
 
   });
 
+  function update_preview() {
+    var sample = $("#textareaA").val();
+    var url = '/charles/sample/mathjs/post';
+    var data = { val : sample };
+    $.ajax({
+        dataType: 'json',
+        type:'GET',
+        url: url,
+        data: data,
+        beforeSend: function () {
+          console.log("Sample.....");
+        }
+    }).done(function(json){
+        if(json.status == 200) {
+          popuplate_preview();
+        }
+    });
+  }
+
   function popuplate_preview() {
     var sample = $("#textareaA").val();
-    var url = '/charles/sample/mathjs?val=' + sample;
+    var url = '/charles/sample/mathjs/get';
     $("#iframePreviewA").attr("src", url);
   }
 

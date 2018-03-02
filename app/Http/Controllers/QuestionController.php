@@ -8,6 +8,8 @@ use App\Question;
 use App\Answer;
 use App\Biology;
 
+use DB;
+
 class QuestionController extends Controller
 {
     //
@@ -22,11 +24,29 @@ class QuestionController extends Controller
       return view("admin.teacher.createQuestion");
     }
 
+    public function post_mathjs(Request $request) {
+      $an = Answer::where("Id", 44)
+      ->update(
+        array(
+          "answer" => $request->val
+        )
+      );
+
+      if($an) {
+        return array('status' => 200);
+      }
+      return array('status' => 500);
+    }
+
 
     public function get_mathjs(Request $request) {
 
+
+      $db = DB::select("SELECT * FROM tbl_answer WHERE Id = 44;");
+
       $array = array(
-        "val" => $request->val
+        "val" => $request->val,
+        "answer" => $db[0]->answer
       );
 
       return view("sample", compact('array'));
