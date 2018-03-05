@@ -10,6 +10,7 @@ use App\Result;
 use app\StudentInfo;
 use DB;
 use Carbon\Carbon;
+use DB;
 
 class StudentController extends Controller
 {
@@ -20,7 +21,13 @@ class StudentController extends Controller
     public static $pre_que_l4 = 550;
 
 
+<<<<<<< HEAD
 public function add_student(Request $request) {
+=======
+    public static $total_questions = 14000;
+
+    public function add_student(Request $request) {
+>>>>>>> 642a74f6ab871dde6fa637d66d45c6edc2e2df58
         // return $request;
 
         $dt = Carbon::parse($request->birthday);
@@ -115,10 +122,11 @@ public function set_student_target(Request $request) {
         "You have" => $target_days . " days left to finish the pre-test"
         //"Minimum Questions per day" => round($per_day),
         //"Total_Questions_for_30days" => $l1 + $l2 + $l3 + $l4
-    );
+      );
       return $set_;
-}
+    }
 
+<<<<<<< HEAD
 public function student_result(Request $request) {
 
       $rl1 = DB::select("SELECT sum(l1_result) as T1 FROM ambeyo_neet.tbl_results where student_id = 1");
@@ -206,4 +214,24 @@ public function show_student_info(request $request) {
 
 
 
+=======
+    public function student_result($id=1) {
+      $b = Criteria::where("ID", (int)$id)->get(['category', 'description']);
+      return ["data" => $b];
+    }
+
+    public function charles_sample()
+    {
+      // $data = array(
+      //   "name" => "Sample",
+      //   "work_days" => "27",
+      //   "work_days_a_week" => "5"
+      // );
+
+      $db = DB::select("SELECT * FROM tbl_total_questions;");
+      return $db;
+
+      // return view('charles', compact('data'));
+    }
+>>>>>>> 642a74f6ab871dde6fa637d66d45c6edc2e2df58
 }

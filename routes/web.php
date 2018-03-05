@@ -16,13 +16,30 @@
 // });
 
 
-Route::get("/{name?}", function($name = null) {
-    if($name == null) {
-        return view('welcome');
-    }
-    return ["Name" => $name];
+Route::get('/dashboard', 'HomeController@Index');
+
+Route::get('/question/subject', 'HomeController@Question_Subject');
+
+Route::get('/question/subject/{subject}', 'HomeController@Question_Add');
+
+Route::get('/student/result', 'StudentController@student_result');
+<<<<<<< HEAD
+Route::get('/student/studentinfo', 'StudentController@show_student_info');
+=======
+
+Route::get('/charles/sample', 'StudentController@charles_sample');
+
+Route::get('/charles/sample/mathjs/post', 'QuestionController@post_mathjs');
+
+Route::get('/charles/sample/mathjs/get', 'QuestionController@get_mathjs');
+
+//get_mathjs
+
+Route::get('/charles/get', function() {
+  return ["sample" => 200];
 });
 
-Route::get('/student/target', 'StudentController@set_student_target');
-Route::get('/student/result', 'StudentController@student_result');
-Route::get('/student/studentinfo', 'StudentController@show_student_info');
+Route::post('/charles/post', function() {
+  return ["sample" => 200];
+});
+>>>>>>> 642a74f6ab871dde6fa637d66d45c6edc2e2df58
