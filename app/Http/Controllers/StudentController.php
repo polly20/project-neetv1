@@ -10,7 +10,6 @@ use App\Result;
 use app\StudentInfo;
 use DB;
 use Carbon\Carbon;
-use DB;
 
 class StudentController extends Controller
 {
@@ -21,13 +20,7 @@ class StudentController extends Controller
     public static $pre_que_l4 = 550;
 
 
-<<<<<<< HEAD
 public function add_student(Request $request) {
-=======
-    public static $total_questions = 14000;
-
-    public function add_student(Request $request) {
->>>>>>> 642a74f6ab871dde6fa637d66d45c6edc2e2df58
         // return $request;
 
         $dt = Carbon::parse($request->birthday);
@@ -126,7 +119,6 @@ public function set_student_target(Request $request) {
       return $set_;
     }
 
-<<<<<<< HEAD
 public function student_result(Request $request) {
 
       $rl1 = DB::select("SELECT sum(l1_result) as T1 FROM ambeyo_neet.tbl_results where student_id = 1");
@@ -146,10 +138,10 @@ public function show_student_info(request $request) {
 
       $test_call = DB::select("call test_proc"); //sample stored procedure
       $info = DB::select("select * from tbl_student_total_result");
-      $crit = DB::select("select * from tbl_criteria");
-      $tar = DB::select("select target_percentage from tbl_students where Id = 1");
+      $criteria = DB::select("select * from tbl_criteria");
+      $target = DB::select("select target_percentage from tbl_students where Id = 1");
 
-      $t = $tar[0]->target_percentage; //student target percentage
+      $t = $target[0]->target_percentage; //student target percentage
 
       $l1q = $this::$pre_que_l1*($t/100); //questions per target percentage
       $l2q = $this::$pre_que_l2*($t/100); //questions per target percentage
@@ -161,10 +153,10 @@ public function show_student_info(request $request) {
       $l3t = ($info[0]->L3_Total_Results/$l3q)*100; //exam result percentage
       $l4t = ($info[0]->L4_Total_Results/$l4q)*100; //exam result percentage
 
-      $tot1 = $l1t*$crit[0]->percentage; //exam points per 100%
-      $tot2 = $l2t*$crit[1]->percentage; //exam points per 100%
-      $tot3 = $l3t*$crit[2]->percentage; //exam points per 100%
-      $tot4 = $l4t*$crit[3]->percentage; //exam points per 100%
+      $tot1 = $l1t*$criteria[0]->percentage; //exam points per 100%
+      $tot2 = $l2t*$criteria[1]->percentage; //exam points per 100%
+      $tot3 = $l3t*$criteria[2]->percentage; //exam points per 100%
+      $tot4 = $l4t*$criteria[3]->percentage; //exam points per 100%
       $total_all = $tot1+$tot2+$tot3+$tot4;
 
       return ([
@@ -214,24 +206,4 @@ public function show_student_info(request $request) {
 
 
 
-=======
-    public function student_result($id=1) {
-      $b = Criteria::where("ID", (int)$id)->get(['category', 'description']);
-      return ["data" => $b];
-    }
-
-    public function charles_sample()
-    {
-      // $data = array(
-      //   "name" => "Sample",
-      //   "work_days" => "27",
-      //   "work_days_a_week" => "5"
-      // );
-
-      $db = DB::select("SELECT * FROM tbl_total_questions;");
-      return $db;
-
-      // return view('charles', compact('data'));
-    }
->>>>>>> 642a74f6ab871dde6fa637d66d45c6edc2e2df58
 }
