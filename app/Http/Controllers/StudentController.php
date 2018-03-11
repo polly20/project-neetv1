@@ -119,6 +119,7 @@ class StudentController extends Controller
       return $set_;
     }
 
+<<<<<<< HEAD
     public function student_result(Request $request) {
 
 
@@ -128,6 +129,9 @@ class StudentController extends Controller
       $rl2 = DB::select("SELECT sum(l2_result) as T2 FROM tbl_results where student_id = 1");
       $rl3 = DB::select("SELECT sum(l3_result) as T3 FROM tbl_results where student_id = 1");
       $rl4 = DB::select("SELECT sum(l4_result) as T4 FROM tbl_results where student_id = 1");
+=======
+public function student_result(Request $request) {
+>>>>>>> 8fa8d4f3bb66d0c8d20be5c75ceb351f1a3101bb
 
       $tl1 = $rl1[0]->T1;
       $tl2 = $rl2[0]->T2;
@@ -142,10 +146,10 @@ class StudentController extends Controller
 
       $test_call = DB::select("call test_proc"); //sample stored procedure
       $info = DB::select("select * from tbl_student_total_result");
-      $crit = DB::select("select * from tbl_criteria");
-      $tar = DB::select("select target_percentage from tbl_students where Id = 1");
+      $criteria = DB::select("select * from tbl_criteria");
+      $target = DB::select("select target_percentage from tbl_students where Id = 1");
 
-      $t = $tar[0]->target_percentage; //student target percentage
+      $t = $target[0]->target_percentage; //student target percentage
 
       $l1q = $this::$pre_que_l1*($t/100); //questions per target percentage
       $l2q = $this::$pre_que_l2*($t/100); //questions per target percentage
@@ -157,10 +161,10 @@ class StudentController extends Controller
       $l3t = ($info[0]->L3_Total_Results/$l3q)*100; //exam result percentage
       $l4t = ($info[0]->L4_Total_Results/$l4q)*100; //exam result percentage
 
-      $tot1 = $l1t*$crit[0]->percentage; //exam points per 100%
-      $tot2 = $l2t*$crit[1]->percentage; //exam points per 100%
-      $tot3 = $l3t*$crit[2]->percentage; //exam points per 100%
-      $tot4 = $l4t*$crit[3]->percentage; //exam points per 100%
+      $tot1 = $l1t*$criteria[0]->percentage; //exam points per 100%
+      $tot2 = $l2t*$criteria[1]->percentage; //exam points per 100%
+      $tot3 = $l3t*$criteria[2]->percentage; //exam points per 100%
+      $tot4 = $l4t*$criteria[3]->percentage; //exam points per 100%
       $total_all = $tot1+$tot2+$tot3+$tot4;
 
       return ([
@@ -189,6 +193,7 @@ class StudentController extends Controller
               ]);
 }
 
+<<<<<<< HEAD
     public function charles_sample()
     {
       // $data = array(
@@ -202,4 +207,27 @@ class StudentController extends Controller
 
       // return view('charles', compact('data'));
     }
+=======
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+>>>>>>> 8fa8d4f3bb66d0c8d20be5c75ceb351f1a3101bb
 }
