@@ -155,11 +155,15 @@
 <script src="{{ asset('js/sweetalert2.all.js', $ssl) }}"></script>
 <script src="https://cdn.ckeditor.com/ckeditor5/1.0.0-alpha.2/classic/ckeditor.js"></script>
 <script>
+
+
  //  ClassicEditor
  // .create( document.querySelector( '#textareaA' ) )
  // .catch( error => {
- //     console.error( error );
- //   } );
+ //   console.error( error );
+ //  });
+
+
 
   $(document).ready(function() {
 

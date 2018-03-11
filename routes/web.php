@@ -11,21 +11,24 @@
 |
 */
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
+Route::get('/', function () {
+    return view('welcome');
+});
 
 
-Route::get('/dashboard', 'HomeController@Index');
+Route::get('/dashboard', 'HomeController@Dashboard');
+
+// Route::get('/product', 'HomeController@product');
+//
+// Route::get('/mail', 'Controller@test_email');
 
 Route::get('/question/subject', 'HomeController@Question_Subject');
 
 Route::get('/question/subject/{subject}', 'HomeController@Question_Add');
 
 Route::get('/student/result', 'StudentController@student_result');
-<<<<<<< HEAD
+
 Route::get('/student/studentinfo', 'StudentController@show_student_info');
-=======
 
 Route::get('/charles/sample', 'StudentController@charles_sample');
 
@@ -42,4 +45,7 @@ Route::get('/charles/get', function() {
 Route::post('/charles/post', function() {
   return ["sample" => 200];
 });
->>>>>>> 642a74f6ab871dde6fa637d66d45c6edc2e2df58
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

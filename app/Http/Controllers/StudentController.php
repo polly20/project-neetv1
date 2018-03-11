@@ -10,7 +10,6 @@ use App\Result;
 use app\StudentInfo;
 use DB;
 use Carbon\Carbon;
-use DB;
 
 class StudentController extends Controller
 {
@@ -19,15 +18,9 @@ class StudentController extends Controller
     public static $pre_que_l2 = 700;
     public static $pre_que_l3 = 600;
     public static $pre_que_l4 = 550;
-
-
-<<<<<<< HEAD
-public function add_student(Request $request) {
-=======
     public static $total_questions = 14000;
 
     public function add_student(Request $request) {
->>>>>>> 642a74f6ab871dde6fa637d66d45c6edc2e2df58
         // return $request;
 
         $dt = Carbon::parse($request->birthday);
@@ -56,7 +49,7 @@ public function add_student(Request $request) {
         );
     }
 
-public function set_student_target(Request $request) {
+    public function set_student_target(Request $request) {
 
       $target_days = 30;
       $target_percentage = 90;
@@ -126,23 +119,26 @@ public function set_student_target(Request $request) {
       return $set_;
     }
 
-<<<<<<< HEAD
-public function student_result(Request $request) {
+    public function student_result(Request $request) {
 
-      $rl1 = DB::select("SELECT sum(l1_result) as T1 FROM ambeyo_neet.tbl_results where student_id = 1");
-      $rl2 = DB::select("SELECT sum(l2_result) as T2 FROM ambeyo_neet.tbl_results where student_id = 1");
-      $rl3 = DB::select("SELECT sum(l3_result) as T3 FROM ambeyo_neet.tbl_results where student_id = 1");
-      $rl4 = DB::select("SELECT sum(l4_result) as T4 FROM ambeyo_neet.tbl_results where student_id = 1");
+
+      $rl1 = DB::select("SELECT sum(l1_result) as T1 FROM tbl_results where student_id = 1");
+
+
+      $rl2 = DB::select("SELECT sum(l2_result) as T2 FROM tbl_results where student_id = 1");
+      $rl3 = DB::select("SELECT sum(l3_result) as T3 FROM tbl_results where student_id = 1");
+      $rl4 = DB::select("SELECT sum(l4_result) as T4 FROM tbl_results where student_id = 1");
+
       $tl1 = $rl1[0]->T1;
       $tl2 = $rl2[0]->T2;
       $tl3 = $rl3[0]->T3;
       $tl4 = $rl4[0]->T4;
 
       $sum = $tl2 + $tl4;
-      return view(['student_result' => $sum]);
+      return ['student_result' => $sum];
 }
 
-public function show_student_info(request $request) {
+    public function show_student_info(request $request) {
 
       $test_call = DB::select("call test_proc"); //sample stored procedure
       $info = DB::select("select * from tbl_student_total_result");
@@ -193,33 +189,6 @@ public function show_student_info(request $request) {
               ]);
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-=======
-    public function student_result($id=1) {
-      $b = Criteria::where("ID", (int)$id)->get(['category', 'description']);
-      return ["data" => $b];
-    }
-
     public function charles_sample()
     {
       // $data = array(
@@ -233,5 +202,4 @@ public function show_student_info(request $request) {
 
       // return view('charles', compact('data'));
     }
->>>>>>> 642a74f6ab871dde6fa637d66d45c6edc2e2df58
 }

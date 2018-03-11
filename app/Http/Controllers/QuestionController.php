@@ -14,7 +14,6 @@ class QuestionController extends Controller
 {
     //
 
-
     public function index() {
 
       $h =  new HelperController("pogi");
@@ -40,8 +39,6 @@ class QuestionController extends Controller
 
 
     public function get_mathjs(Request $request) {
-
-
       $db = DB::select("SELECT * FROM tbl_answer WHERE Id = 44;");
 
       $array = array(
