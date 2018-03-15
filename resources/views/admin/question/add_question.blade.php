@@ -75,9 +75,6 @@
                      <li class="nav-item">
                          <a class="nav-link" data-toggle="tab" href="#diagramA" role="tab" aria-expanded="false">Image Diagram</a>
                      </li>
-                     <li class="nav-item">
-                         <a class="nav-link" data-toggle="tab" href="#bothA" role="tab" aria-expanded="false">Both</a>
-                     </li>
                    </ul>
                    <div class="tab-content">
                        <div class="tab-pane fade active show" id="textA" role="tabpanel" aria-expanded="true">
@@ -99,19 +96,6 @@
                            <p>Upload image diagram</p>
                            <input type="file" name="diagrams[]" accept=".jpg, .png, .jpeg" />
                            <i class="form-group__bar"></i>
-                         </div>
-                       </div>
-                       <div class="tab-pane fade" id="bothA" role="tabpanel" aria-expanded="false">
-                         <div class="form-group">
-                           <p>Type your answer</p>
-                           <textarea class="form-control" name="options[]" rows="5" placeholder="Let us type some lorem ipsum...."></textarea>
-                         </div>
-
-                         <div class="form-group">
-                           <p>Upload image diagram</p>
-                           <input type="file" name="diagrams[]" accept=".jpg, .png, .jpeg" />
-                           <i class="form-group__bar"></i>
-                           <br />
                          </div>
                        </div>
                    </div>
@@ -156,14 +140,11 @@
 <script src="https://cdn.ckeditor.com/ckeditor5/1.0.0-alpha.2/classic/ckeditor.js"></script>
 <script>
 
-
  //  ClassicEditor
  // .create( document.querySelector( '#textareaA' ) )
  // .catch( error => {
  //   console.error( error );
  //  });
-
-
 
   $(document).ready(function() {
 
@@ -177,9 +158,6 @@
     var letters = ['A', 'B', 'C', 'D'];
     var count = 1;
     $('#btnAddOption').click(function() {
-
-      one_time_password();
-      return false;
 
       if(count >= letters.length) {
         return false;

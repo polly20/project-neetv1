@@ -45,10 +45,7 @@ Route::get('/charles/get', function() {
 Route::post('/charles/post', function() {
   return ["sample" => 200];
 });
-<<<<<<< HEAD
 
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
-=======
->>>>>>> 8fa8d4f3bb66d0c8d20be5c75ceb351f1a3101bb
