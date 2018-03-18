@@ -24,7 +24,9 @@ Route::get('/dashboard', 'HomeController@Dashboard');
 
 Route::get('/question/subject', 'HomeController@Question_Subject');
 
-Route::get('/question/subject/{subject}', 'HomeController@Question_Add');
+Route::get('/question/subject/{subject}', 'HomeController@Question_Add'); //question_api
+
+Route::get('/question/add-with-answers-and-diagram', 'QuestionController@question_api'); //question_api
 
 Route::get('/student/result', 'StudentController@student_result');
 

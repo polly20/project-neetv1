@@ -37,7 +37,6 @@ class QuestionController extends Controller
       return array('status' => 500);
     }
 
-
     public function get_mathjs(Request $request) {
       $db = DB::select("SELECT * FROM tbl_answer WHERE Id = 44;");
 
@@ -90,6 +89,45 @@ class QuestionController extends Controller
     public function get_biology($id) {
       $b = Question::where("Id", (int)$id)->get(['subject_id', 'question']);
       return ["data" => $b];
+    }
+
+
+    //
+
+
+
+    public function question_api(Request $request) {
+      $q = new Question();
+      $q->subject_id = $request->subject;
+      $q->question = $request->question;
+
+      if($q->save()) {
+        $question = array(
+          "status" => 200,
+          'id' => $q->id
+        );
+
+        $this->add_answer($q->id, "A", $request->A, "NA");
+        $this->add_answer($q->id, "B", $request->B, "NA");
+        $this->add_answer($q->id, "C", $request->C, "NA");
+        $this->add_answer($q->id, "D", $request->D, "NA");
+      }
+      else {
+        $question = array(
+          "status" => 500,
+          'id' => 0
+        );
+      }
+      return $question;
+    }
+
+    public function add_answer($qid, $option, $answer, $r_answer) {
+      $q = new Answer();
+      $q->question_id = $qid;
+      $q->choices = $option;
+      $q->answer = $answer;
+      $q->right_answer = $r_answer;
+      return  $q->save() ? 200 : 500;
     }
 
 }
