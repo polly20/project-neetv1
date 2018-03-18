@@ -253,6 +253,8 @@
           console.log(json);
           if(json.status == 200) {
             box_alert("Good Job", "You have added question", "success");
+
+            setInterval(function () { location.reload() }, 3000);
           }
       });
     })
