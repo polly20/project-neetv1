@@ -57,10 +57,10 @@ return [
 
         's3' => [
             'driver' => 's3',
-            'key' => env('AWS_ACCESS_KEY_ID'),
-            'secret' => env('AWS_SECRET_ACCESS_KEY'),
-            'region' => env('AWS_DEFAULT_REGION'),
-            'bucket' => env('AWS_BUCKET'),
+            'key' => env('AKIAJ7OHOU3XFE4XLP7A'),
+            'secret' => env('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'),
+            'region' => env('ap-southeast-1'),
+            'bucket' => env('ambeyo-s3-bucket-v1'),
         ],
 
     ],

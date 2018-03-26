@@ -7,7 +7,7 @@ use App\Subject;
 use App\Question;
 use App\Answer;
 use App\Biology;
-
+use Illuminate\Support\Facades\Storage;
 use DB;
 
 class QuestionController extends Controller
@@ -16,9 +16,13 @@ class QuestionController extends Controller
 
     public function index() {
 
-      $h =  new HelperController("pogi");
+      // $h =  new HelperController("pogi");
 
       // dd($h->get_sample_a("charles nga ay"));
+
+      $exists = Storage::disk('s3')->exists('buisness-element-4.jpg');
+
+      dd($exists);
 
       return view("admin.teacher.createQuestion");
     }
