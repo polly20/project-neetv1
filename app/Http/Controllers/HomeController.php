@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Subject;
 use App\Question;
 use App\Answer;
+use DB;
 
 class HomeController extends Controller
 {
@@ -35,6 +36,23 @@ class HomeController extends Controller
 
     public function Question_Subject() {
       return view('admin.question.subject');
+    }
+
+    public function Question_List($subject) {
+      return view('admin.question.list');
+    }
+
+    public function Question_List_Data($subject_id) {
+
+      $data = DB::select("SELECT * FROM tbl_question WHERE subject_id = {$subject_id};");
+
+      $count = COUNT($data);
+
+      return array(
+        "status" => $count > 0 ? 200 : 404,
+        "message" => $count > 0 ? "{$count} Total Records Found." : "No Records Found.",
+        "data" => $count > 0 ? $data : null
+      );
     }
 
     public function Question_Add($subject) {
