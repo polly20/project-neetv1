@@ -11,16 +11,26 @@
 |
 */
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
+Route::get('/', function () {
+    return view('welcome');
+});
 
 
-Route::get('/dashboard', 'HomeController@Index');
+Route::get('/dashboard', 'HomeController@Dashboard');
+
+// Route::get('/product', 'HomeController@product');
+//
+// Route::get('/mail', 'Controller@test_email');
 
 Route::get('/question/subject', 'HomeController@Question_Subject');
 
-Route::get('/question/subject/{subject}', 'HomeController@Question_Add');
+Route::get('/question/subject/{subject}', 'HomeController@Question_List');
+
+Route::get('/question/subject/get/{subject}', 'HomeController@Question_List_Data');
+
+Route::get('/question/subject/add/{subject}', 'HomeController@Question_Add'); //question_api
+
+Route::get('/question/add-with-answers-and-diagram', 'QuestionController@question_api'); //question_api
 
 Route::get('/student/result', 'StudentController@student_result');
 
@@ -41,3 +51,7 @@ Route::get('/charles/get', function() {
 Route::post('/charles/post', function() {
   return ["sample" => 200];
 });
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

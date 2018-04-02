@@ -124,6 +124,15 @@ class StudentController extends Controller
       //
       // $sum = $tl2 + $tl4;
       // return view(['student_result' => $sum]);
+
+      $tl1 = $rl1[0]->T1;
+      $tl2 = $rl2[0]->T2;
+      $tl3 = $rl3[0]->T3;
+      $tl4 = $rl4[0]->T4;
+
+      $sum = $tl2 + $tl4;
+      return ['student_result' => $sum];
+
 }
     public function show_student_info(request $request) {
 
@@ -168,27 +177,5 @@ class StudentController extends Controller
         "Total_Exam_Points" => number_format($total_all_points , 2),
         "Actual_Exam_Result" => round($total_result) . "/" . $target[0]->target_percentage
       );
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    }
 }

@@ -50,7 +50,7 @@
                <h6 class="card-subtitle">Form control which supports multiple lines of text. Change 'rows' attribute as necessary.</h6>
 
                <div class="form-group">
-                   <textarea class="form-control" rows="5" placeholder="Let us type some lorem ipsum...."></textarea>
+                   <textarea class="form-control" rows="5" id="question" name="question" placeholder="Let us type some lorem ipsum...."></textarea>
                    <i class="form-group__bar"></i>
                </div>
 
@@ -75,22 +75,15 @@
                      <li class="nav-item">
                          <a class="nav-link" data-toggle="tab" href="#diagramA" role="tab" aria-expanded="false">Image Diagram</a>
                      </li>
-                     <li class="nav-item">
-                         <a class="nav-link" data-toggle="tab" href="#bothA" role="tab" aria-expanded="false">Both</a>
-                     </li>
                    </ul>
                    <div class="tab-content">
                        <div class="tab-pane fade active show" id="textA" role="tabpanel" aria-expanded="true">
                          <div class="form-group">
                            <p>Type Your Answer</p>
-
-                           <?php $value = 'When $a \ne 0$, there are two solutions to \(ax^2 + bx + c = 0\) and they are $$x = {-b \pm \sqrt{b^2-4ac} \over 2a}.$$';?>
-                           <textarea class="form-control" id="textareaA" name="options[]" rows="10" placeholder="Let us type some lorem ipsum....">{!! $value !!}</textarea>
-
+                           <textarea class="form-control" id="textareaA" name="options[]" rows="10" placeholder="Let us type some lorem ipsum...."></textarea>
                            <br />
                            <p>Type Your Answer Preview</p>
                            <iframe id="iframePreviewA" style="width: 100%;" frameBorder="0"></iframe>
-
                            <i class="form-group__bar"></i>
                          </div>
                        </div>
@@ -101,30 +94,15 @@
                            <i class="form-group__bar"></i>
                          </div>
                        </div>
-                       <div class="tab-pane fade" id="bothA" role="tabpanel" aria-expanded="false">
-                         <div class="form-group">
-                           <p>Type your answer</p>
-                           <textarea class="form-control" name="options[]" rows="5" placeholder="Let us type some lorem ipsum...."></textarea>
-                         </div>
-
-                         <div class="form-group">
-                           <p>Upload image diagram</p>
-                           <input type="file" name="diagrams[]" accept=".jpg, .png, .jpeg" />
-                           <i class="form-group__bar"></i>
-                           <br />
-                         </div>
-                       </div>
                    </div>
                </div>
              </div>
            </div>
-
-           <button id="btnAddOption" type="button" class="btn btn-light">Add Answer Option</button>
-
-           <button id="btnNoAddOption" type="button" class="btn btn-light" style="display: none;">Add Answer Option</button>
-
+           <button id="btnAddOption" type="button" class="btn btn-light"><i class="zmdi zmdi-plus-circle"></i> Add Answer Option</button>
+           <button id="btnNoAddOption" type="button" class="btn btn-light" style="display: none;"><i class="zmdi zmdi-plus-circle"></i> Add Answer Option</button>
+           <p style="text-align:center; margin: 5px 0 5px 0;">OR</p>
+           <button id="btnSave" type="button" class="btn btn-success"><i class="zmdi zmdi-check-all"></i> Save</button>
        </div>
-
    </div>
 
    <footer class="footer hidden-xs-down">
@@ -155,11 +133,12 @@
 <script src="{{ asset('js/sweetalert2.all.js', $ssl) }}"></script>
 <script src="https://cdn.ckeditor.com/ckeditor5/1.0.0-alpha.2/classic/ckeditor.js"></script>
 <script>
+
  //  ClassicEditor
  // .create( document.querySelector( '#textareaA' ) )
  // .catch( error => {
- //     console.error( error );
- //   } );
+ //   console.error( error );
+ //  });
 
   $(document).ready(function() {
 
@@ -171,11 +150,9 @@
     });
 
     var letters = ['A', 'B', 'C', 'D'];
+    var caches = [];
     var count = 1;
     $('#btnAddOption').click(function() {
-
-      one_time_password();
-      return false;
 
       if(count >= letters.length) {
         return false;
@@ -185,13 +162,18 @@
         $("#btnAddOption").hide();
         $("#btnNoAddOption").show();
         $('#btnNoAddOption').click(function(){
-          warning_alert("Oops, you cannot add more answer option.");
+          box_alert("Oops", "You cannot add more answer option.", "warning");
         });
       }
 
+      caches[0] = $("#textareaA").val();
+      caches[1] = $("#textareaB").val();
+      caches[2] = $("#textareaC").val();
+      caches[3] = $("#textareaD").val();
+
       var content = $("#div_answer_options").html();
       var text = "<div class='card-body'>";
-      text += "<h4 class='card-title'>Answer Option "+ letters[count] +" | <a href='#'><i class='zmdi zmdi-delete'></i> Remove</a></h4>";
+      text += "<h4 class='card-title'>Answer Option "+ letters[count] +" | <a href='#'><i class='zmdi zmdi-delete'></i></a></h4>";
       text += "<div class='tab-container'>";
       text += "<ul class='nav nav-tabs' role='tablist'>";
       text += "<li class='nav-item'>";
@@ -200,9 +182,6 @@
       text += "<li class='nav-item'>";
       text += "<a class='nav-link' data-toggle='tab' href='#diagram"+ letters[count] +"' role='tab' aria-expanded='false'>Image Diagram</a>";
       text += "</li>";
-      text += "<li class='nav-item'>";
-      text += "<a class='nav-link' data-toggle='tab' href='#both"+ letters[count] +"' role='tab' aria-expanded='false'>Both</a>";
-      text += "</li>";
       text += "</ul>";
 
       text += "<div class='tab-content'>";
@@ -210,7 +189,10 @@
       text += "<div class='tab-pane fade active show' id='text"+ letters[count] +"' role='tabpanel' aria-expanded='true'>";
       text += "<div class='form-group'>";
       text += "<p>Type your answer</p>";
-      text += "<textarea class='form-control' name='options[]' rows='5' placeholder='Let us type some lorem ipsum....'></textarea>";
+      text += "<textarea class='form-control' id='textarea"+ letters[count] +"' name='options[]' rows='5' placeholder='Let us type some lorem ipsum....'></textarea>";
+      text += "<br /> ";
+      text += "<p>Type Your Answer Preview</p>";
+      text += "<iframe id='iframePreview"+ letters[count] +"' style='width: 100%;' frameBorder='0'></iframe>";
       text += "<i class='form-group__bar'></i>";
       text += "</div>";
       text += "</div>";
@@ -223,37 +205,69 @@
       text += "</div>";
       text += "</div>";
 
-      text += "<div class='tab-pane fade' id='both"+ letters[count] +"' role='tabpanel' aria-expanded='false'>";
-      text += "<div class='form-group'>";
-      text += "<p>Type your answer</p>";
-      text += "<textarea class='form-control' name='options[]' rows='5' placeholder='Let us type some lorem ipsum....'></textarea>";
-      text += "<i class='form-group__bar'></i>";
-      text += "</div>";
-      text += "<div class='form-group'>";
-      text += "<p>Upload image diagram</p>";
-      text += "<input type='file' name='diagrams[]' accept='.jpg, .png, .jpeg' />";
-      text += "<i class='form-group__bar'></i>";
-      text += "</div>";
-      text += "</div>";
-
       text += "</div";
       text += "</div";
 
       var new_content = content + text;
-      console.log(count);
       $("#div_answer_options").empty().prepend(new_content);
+
+      $( "#textareaA").keyup(function() {
+        update_preview("A");
+      });
+      $( "#textareaB").keyup(function() {
+        update_preview("B");
+      });
+      $( "#textareaC").keyup(function() {
+        update_preview("C");
+      });
+      $( "#textareaD").keyup(function() {
+        update_preview("D");
+      });
+
+      $("#textareaA").val(caches[0]);
+      $("#textareaB").val(caches[1]);
+      $("#textareaC").val(caches[2]);
+      $("#textareaD").val(caches[3]);
+
       count++;
     });
 
+    $('#btnSave').click(function() {
+      var Q = $("#question").val();
+      var A = $("#textareaA").val();
+      var B = $("#textareaB").val();
+      var C = $("#textareaC").val();
+      var D = $("#textareaD").val();
+
+      var url = '/question/add-with-answers-and-diagram';
+      var data = { subject:1, question:Q, A:A, B:B, C:C, D:D };
+      $.ajax({
+          dataType: 'json',
+          type:'GET',
+          url: url,
+          data: data,
+          beforeSend: function () {
+            console.log("Sample.....");
+          }
+      }).done(function(json){
+          console.log(json);
+          if(json.status == 200) {
+            box_alert("Good Job", "You have added question", "success");
+
+            setInterval(function () { location.reload() }, 3000);
+          }
+      });
+    })
+
     popuplate_preview();
     $( "#textareaA" ).keyup(function() {
-      update_preview();
+      update_preview("A");
     });
 
   });
 
-  function update_preview() {
-    var sample = $("#textareaA").val();
+  function update_preview(letter) {
+    var sample = $("#textarea" + letter).val();
     var url = '/charles/sample/mathjs/post';
     var data = { val : sample };
     $.ajax({
@@ -265,23 +279,25 @@
           console.log("Sample.....");
         }
     }).done(function(json){
+        console.log(json);
         if(json.status == 200) {
-          popuplate_preview();
+          popuplate_preview(letter);
         }
     });
   }
 
-  function popuplate_preview() {
-    var sample = $("#textareaA").val();
+  function popuplate_preview(letter) {
+    var sample = $("#textarea"+letter).val();
+    console.log(letter);
     var url = '/charles/sample/mathjs/get';
-    $("#iframePreviewA").attr("src", url);
+    $("#iframePreview"+letter).attr("src", url);
   }
 
-  function warning_alert(message) {
+  function box_alert(title, message, type) {
     swal({
-        title: 'Not a good sign...',
+        title: title,
         text: message,
-        type: 'warning',
+        type: type,
         buttonsStyling: false,
         confirmButtonClass: 'btn btn-sm btn-light',
         background: 'rgba(0, 0, 0, 0.96)'
