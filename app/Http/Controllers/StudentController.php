@@ -1,9 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use Illuminate\Http\Request;
-
 use App\Student;
 use App\Criteria;
 use App\Result;
@@ -14,13 +12,7 @@ use Carbon\Carbon;
 class StudentController extends Controller
 {
 
-    public static $pre_que_l1 = 800;
-    public static $pre_que_l2 = 700;
-    public static $pre_que_l3 = 600;
-    public static $pre_que_l4 = 550;
-
-
-public function add_student(Request $request) {
+    public function add_student(Request $request) {
         // return $request;
 
         $dt = Carbon::parse($request->birthday);
@@ -49,7 +41,7 @@ public function add_student(Request $request) {
         );
     }
 
-public function set_student_target(Request $request) {
+    public function set_student_target(Request $request) {
 
       $target_days = 30;
       $target_percentage = 90;
@@ -119,70 +111,63 @@ public function set_student_target(Request $request) {
       return $set_;
     }
 
-public function student_result(Request $request) {
+    public function student_result(Request $request) {
 
-      $rl1 = DB::select("SELECT sum(l1_result) as T1 FROM ambeyo_neet.tbl_results where student_id = 1");
-      $rl2 = DB::select("SELECT sum(l2_result) as T2 FROM ambeyo_neet.tbl_results where student_id = 1");
-      $rl3 = DB::select("SELECT sum(l3_result) as T3 FROM ambeyo_neet.tbl_results where student_id = 1");
-      $rl4 = DB::select("SELECT sum(l4_result) as T4 FROM ambeyo_neet.tbl_results where student_id = 1");
-      $tl1 = $rl1[0]->T1;
-      $tl2 = $rl2[0]->T2;
-      $tl3 = $rl3[0]->T3;
-      $tl4 = $rl4[0]->T4;
-
-      $sum = $tl2 + $tl4;
-      return view(['student_result' => $sum]);
+      // $rl1 = DB::select("SELECT sum(l1_result) as T1 FROM ambeyo_neet.tbl_results where student_id = 1");
+      // $rl2 = DB::select("SELECT sum(l2_result) as T2 FROM ambeyo_neet.tbl_results where student_id = 1");
+      // $rl3 = DB::select("SELECT sum(l3_result) as T3 FROM ambeyo_neet.tbl_results where student_id = 1");
+      // $rl4 = DB::select("SELECT sum(l4_result) as T4 FROM ambeyo_neet.tbl_results where student_id = 1");
+      // $tl1 = $rl1[0]->T1;
+      // $tl2 = $rl2[0]->T2;
+      // $tl3 = $rl3[0]->T3;
+      // $tl4 = $rl4[0]->T4;
+      //
+      // $sum = $tl2 + $tl4;
+      // return view(['student_result' => $sum]);
 }
+    public function show_student_info(request $request) {
 
-public function show_student_info(request $request) {
-
-      $test_call = DB::select("call test_proc"); //sample stored procedure
-      $info = DB::select("select * from tbl_student_total_result");
+      $exam_questions = array();
+      $level_results = array();
+      $total_level_points = array();
+      $results_per_level = array();
+      $total_all_points = 0;
       $criteria = DB::select("select * from tbl_criteria");
       $target = DB::select("select target_percentage from tbl_students where Id = 1");
+      $preset = DB::select("select totalq as val from tbl_preset_question");
 
-      $t = $target[0]->target_percentage; //student target percentage
 
-      $l1q = $this::$pre_que_l1*($t/100); //questions per target percentage
-      $l2q = $this::$pre_que_l2*($t/100); //questions per target percentage
-      $l3q = $this::$pre_que_l3*($t/100); //questions per target percentage
-      $l4q = $this::$pre_que_l4*($t/100); //questions per target percentage
+        $t = $target[0]->target_percentage / 100; //student target percentage
 
-      $l1t = ($info[0]->L1_Total_Results/$l1q)*100; //exam result percentage
-      $l2t = ($info[0]->L2_Total_Results/$l2q)*100; //exam result percentage
-      $l3t = ($info[0]->L3_Total_Results/$l3q)*100; //exam result percentage
-      $l4t = ($info[0]->L4_Total_Results/$l4q)*100; //exam result percentage
+          for($i = 0; $i < COUNT($preset); $i++) {
 
-      $tot1 = $l1t*$criteria[0]->percentage; //exam points per 100%
-      $tot2 = $l2t*$criteria[1]->percentage; //exam points per 100%
-      $tot3 = $l3t*$criteria[2]->percentage; //exam points per 100%
-      $tot4 = $l4t*$criteria[3]->percentage; //exam points per 100%
-      $total_all = $tot1+$tot2+$tot3+$tot4;
+            $s = $preset[$i]->val * $t;   //Total_Exam_Questions
 
-      return ([
-              array(
-                "Target Percentage" => $t, //student target percentage
-                "Level 1 Result" => $info[0]->L1_Total_Results, //student L1 exam result
-                "Level 2 Result" => $info[0]->L2_Total_Results, //student L2 exam result
-                "Level 3 Result" => $info[0]->L3_Total_Results, //student L3 exam result
-                "Level 4 Result" => $info[0]->L4_Total_Results, //student L4 exam result
-                "Level 1 Questions" => $l1q, //total questions per target percentage
-                "Level 2 Questions" => $l2q, //total questions per target percentage
-                "Level 3 Questions" => $l3q, //total questions per target percentage
-                "Level 4 Questions" => $l4q, //total questions per target percentage
-                "Level 1 result" => round($l1t)."%", //exam result percentage
-                "Level 2 result" =>round($l2t)."%", //exam result percentage
-                "Level 3 result" =>round($l3t)."%", //exam result percentage
-                "Level 4 result" =>round($l4t)."%", //exam result percentage
-                "Total level 1 result" =>round($tot1), //exam points per 100%
-                "Total level 2 result" =>round($tot2), //exam points per 100%
-                "Total level 3 result" =>round($tot3), //exam points per 100%
-                "Total level 4 result" =>round($tot4), //exam points per 100%
-                "Total All Level test Percentage" => round($total_all),
-                "Total points over target Percentage" => round(($t/100)*round($total_all))."/$t",
-                //$test_call
-                    )
-              ]);
+            $exam_questions += array( "level".($i+1) => $s );
+
+            $n = $i + 1;
+            $r = DB::select("select SUM(result) AS r from tbl_results where student_id = 1 and level = {$n}");  //Exam_Results_Percentage
+            $l_results = (float)number_format(($r[0]->r / $s) * 100, 2);
+            $level_results += array( "level".($i+1) => $l_results . "%");
+
+            $results_per_level += array("level" . ($i+1) => $r[0]->r);    //Exam_Results
+
+            $p_results = (float)number_format($l_results * $criteria[$i]->percentage , 2); //Exam_Points_per_Criteria
+            $total_level_points += array( "level".($i+1) => $p_results );
+
+            $total_all_points += $p_results;  //Total_points
+                                                          }
+        $total_result = (($t/100) * $total_all_points) * 100; //Total_Exam_Result
+
+      return array(
+        "Target_Percentage" => $target[0]->target_percentage, //student target percentage
+        "Target_Exam_Questions" => $exam_questions, //total exam questions
+        "Exam_Results" => $results_per_level,
+        "Exam_Results_per_Level" => $level_results,
+        "Exam_Points_per_Criteria" => $total_level_points,
+        "Total_Exam_Points" => number_format($total_all_points , 2),
+        "Actual_Exam_Result" => round($total_result) . "/" . $target[0]->target_percentage
+      );
 }
 
 
