@@ -145,7 +145,6 @@ class StudentController extends Controller
       $target = DB::select("select target_percentage from tbl_students where Id = 1");
       $preset = DB::select("select totalq as val from tbl_preset_question");
 
-
         $t = $target[0]->target_percentage / 100; //student target percentage
 
           for($i = 0; $i < COUNT($preset); $i++) {
