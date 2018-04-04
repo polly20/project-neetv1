@@ -12,20 +12,20 @@
 @section('content')
 <section class="content">
   <header class="content__title">
-    <h1>Question Lists</h1>
+    <h1>Subject {{ $subject["name"] }}</h1>
 
     <div class="actions">
-      <a href="" class="actions__item zmdi zmdi-trending-up"></a>
-      <a href="" class="actions__item zmdi zmdi-check-all"></a>
+      <a href="{{ url('/question/subject/add/' . $subject['name']) }}" class="actions__item zmdi zmdi-plus-circle"></a>
+      <a href="{{ url('/question/subject/' . $subject['name']) }}" class="actions__item zmdi zmdi-refresh"></a>
 
-      <div class="dropdown actions__item">
+      <!-- <div class="dropdown actions__item">
         <i data-toggle="dropdown" class="zmdi zmdi-more-vert"></i>
         <div class="dropdown-menu dropdown-menu-right">
           <a href="" class="dropdown-item">Refresh</a>
           <a href="" class="dropdown-item">Manage Widgets</a>
           <a href="" class="dropdown-item">Settings</a>
         </div>
-      </div>
+      </div> -->
     </div>
   </header>
 
@@ -79,8 +79,23 @@
 <script src="{{ asset('js/buttons.html5.min.js', $ssl) }}"></script>
 <script>
   $(document).ready(function() {
+    var subject = "{{ $subject['name'] }}";
 
-    var url = '/question/subject/get/1';
+    var subject_id = 0;
+    switch (subject) {
+      case "biology":
+        subject_id = 1;
+        break;
+      case "chemistry":
+        subject_id = 2;
+        break;
+      default:
+        subject_id = 3;
+        break;
+
+    }
+
+    var url = '/question/subject/get/' + subject_id;
     $.ajax({
         dataType: 'json',
         type:'GET',

@@ -39,7 +39,8 @@ class HomeController extends Controller
     }
 
     public function Question_List($subject) {
-      return view('admin.question.list');
+      $subject = array('name' => $subject);
+      return view('admin.question.list', compact('subject'));
     }
 
     public function Question_List_Data($subject_id) {
@@ -56,6 +57,7 @@ class HomeController extends Controller
     }
 
     public function Question_Add($subject) {
-      return view('admin.question.add_question');
+      $subject = array('name' => $subject);
+      return view('admin.question.add_question', compact('subject'));
     }
 }

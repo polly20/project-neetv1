@@ -142,6 +142,20 @@
 
   $(document).ready(function() {
 
+    // var subject = "{{ $subject['name'] }}";
+    // var subject_id = 0;
+    // switch (subject) {
+    //   case "biology":
+    //     subject_id = 1;
+    //     break;
+    //   case "chemistry":
+    //     subject_id = 2;
+    //     break;
+    //   default:
+    //     subject_id = 3;
+    //     break;
+    // }
+
     $('#tbl_subjects tr').click(function() {
         var href = $(this).find("th").attr("data-url");
         if(href) {
@@ -240,7 +254,7 @@
       var D = $("#textareaD").val();
 
       var url = '/question/add-with-answers-and-diagram';
-      var data = { subject:1, question:Q, A:A, B:B, C:C, D:D };
+      var data = { subject:subject_id, question:Q, A:A, B:B, C:C, D:D };
       $.ajax({
           dataType: 'json',
           type:'GET',

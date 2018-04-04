@@ -28,7 +28,7 @@ class QuestionController extends Controller
     }
 
     public function post_mathjs(Request $request) {
-      $an = Answer::where("Id", 44)
+      $an = Answer::where("Id", 65)
       ->update(
         array(
           "answer" => $request->val
@@ -42,7 +42,7 @@ class QuestionController extends Controller
     }
 
     public function get_mathjs(Request $request) {
-      $db = DB::select("SELECT * FROM tbl_answer WHERE Id = 44;");
+      $db = DB::select("SELECT * FROM tbl_answer WHERE Id = 65;");
 
       $array = array(
         "val" => $request->val,
