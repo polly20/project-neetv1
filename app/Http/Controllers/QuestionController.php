@@ -28,24 +28,34 @@ class QuestionController extends Controller
     }
 
     public function post_mathjs(Request $request) {
-      $an = Answer::where("Id", 65)
-      ->update(
-        array(
-          "answer" => $request->val
-        )
-      );
+      // $an = Answer::where("Id", 65)
+      // ->update(
+      //   array(
+      //     "answer" => $request->val
+      //   )
+      // );
 
-      if($an) {
-        return array('status' => 200);
+
+      $an = new Answer();
+      $an->answer=$request->val;
+
+      if($an->save()) {
+        return array(
+          'status' => 200,
+          'id' => $an->id
+        );
       }
       return array('status' => 500);
     }
 
-    public function get_mathjs(Request $request) {
-      $db = DB::select("SELECT * FROM tbl_answer WHERE Id = 65;");
+    public function get_mathjs($aid) {
+
+      $id = (int)$aid;
+
+      $db = DB::select("SELECT * FROM tbl_answer WHERE Id = {$id};");
 
       $array = array(
-        "val" => $request->val,
+        "id" => $id,
         "answer" => $db[0]->answer
       );
 

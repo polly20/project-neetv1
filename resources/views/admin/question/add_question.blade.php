@@ -295,15 +295,15 @@
     }).done(function(json){
         console.log(json);
         if(json.status == 200) {
-          popuplate_preview(letter);
+          popuplate_preview(letter, json.id);
         }
     });
   }
 
-  function popuplate_preview(letter) {
+  function popuplate_preview(letter, id) {
     var sample = $("#textarea"+letter).val();
+    var url = '/charles/sample/mathjs/get/'+id;
     console.log(letter);
-    var url = '/charles/sample/mathjs/get';
     $("#iframePreview"+letter).attr("src", url);
   }
 
