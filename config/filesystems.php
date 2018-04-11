@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'default' => env('FILESYSTEM_DRIVER', 'local'),
+    'default' => env('FILESYSTEM_DRIVER', 's3'),
 
     /*
     |--------------------------------------------------------------------------
@@ -57,10 +57,14 @@ return [
 
         's3' => [
             'driver' => 's3',
-            'key' => env('AKIAJ7OHOU3XFE4XLP7A'),
-            'secret' => env('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'),
-            'region' => env('ap-southeast-1'),
-            'bucket' => env('ambeyo-s3-bucket-v1'),
+            'key' => 'AKIAI7TUP55K2IS4BK3Q',
+            'secret' => '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',
+            'region' => 'ap-southeast-1',
+            'bucket' => 'ambeyo-s3-bucket-v2',
+            'version' => 'latest',
+            'http'    => [
+                'verify' => false
+            ]
         ],
 
     ],
