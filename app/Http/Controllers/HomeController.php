@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
 use App\Subject;
 use App\Question;
@@ -17,8 +18,12 @@ class HomeController extends Controller
      */
     public function __construct()
     {
+<<<<<<< HEAD
         $this->middleware('preventBackHistory');
         $this->middleware('auth');
+=======
+        // $this->middleware('auth');
+>>>>>>> 5faf0e70be25e7523faa7abd3bde6db628cdfdac
     }
 
     /**
@@ -28,6 +33,14 @@ class HomeController extends Controller
      */
     public function index()
     {
+        $files = Storage::disk('s3')->files();
+
+        $domain = "https://s3-ap-southeast-1.amazonaws.com/ambeyo-s3-bucket-v2/";
+
+        for($i = 0; $i < COUNT($files); $i++) {
+          echo "<a href='" . $domain . $files[$i] . "' target='_blank'>" . $domain . $files[$i] . "</a> <br />";
+        }
+
         return view('home');
     }
 
