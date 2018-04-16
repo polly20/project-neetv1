@@ -12,15 +12,54 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('admin.login');
 });
 
+//-----------------------
+// MJT ROUTES
+//-----------------------
 
-Route::get('/dashboard', 'HomeController@Dashboard');
+Route::get('/marchjax', function(){
+    return view('marchjax');
+});
 
-// Route::get('/product', 'HomeController@product');
-//
-// Route::get('/mail', 'Controller@test_email');
+Route::get('/marchjax_preview/{preview_name}', function($preview_name){
+    return view('marchjax_preview', ['preview_name' => $preview_name]);
+});
+
+Route::get('/questions_preview/{preview_name}', function($preview_name){
+    return view('admin.question.questions_preview', ['preview_name' => $preview_name]);
+});
+
+Route::get('/test/{topic_id}', 'SubTopicsController@get_sub_topics');
+
+Route::get('/dashboard', 'HomeController@Dashboard')->name('dashboard');
+
+Route::get('/subjects', 'SubjectController@index')->name('subjects');
+Route::get('/subjects/edit/{subject_id}', 'SubjectController@edit')->name('subjects.edit');
+Route::get('/subjects/delete/{subject_id}', 'SubjectController@delete')->name('subjects.delete');
+Route::post('/subjects/store', 'SubjectController@store')->name('subjects.store');
+Route::post('/subjects/update', 'SubjectController@update')->name('subjects.update');
+
+Route::get('/topics/{subject_name?}', 'TopicsController@index')->name('topics');
+Route::get('/topics/edit/{topic_id}', 'TopicsController@edit')->name('topics.edit');
+Route::get('/topics/delete/{topic_id}', 'TopicsController@delete')->name('topics.delete');
+Route::post('/topics/update', 'TopicsController@update')->name('topics.update');
+Route::post('/topics/store', 'TopicsController@store')->name('topics.store');
+
+Route::get('/topics/{topic_id}/sub', 'SubTopicsController@index')->name('subtopics');
+Route::post('/topics/store/sub', 'SubTopicsController@store')->name('subtopics.store');
+Route::get('/topics/edit/{sub_topic_id}/sub', 'SubTopicsController@edit')->name('subtopics.edit');
+Route::post('/topics/update/sub', 'SubTopicsController@update')->name('subtopics.update');
+Route::get('/topics/delete/{sub_topic_id}/sub', 'SubTopicsController@delete')->name('subtopics.delete');
+
+Route::get('/syllabus', 'SyllabusController@get_syllabus');
+
+Route::get('/questions', 'QuestionsController@index')->name('questions');
+
+
+
+
 
 Route::get('/question/subject', 'HomeController@Question_Subject');
 
@@ -41,16 +80,6 @@ Route::get('/charles/sample', 'StudentController@charles_sample');
 Route::get('/charles/sample/mathjs/post', 'QuestionController@post_mathjs');
 
 Route::get('/charles/sample/mathjs/get/{aid}', 'QuestionController@get_mathjs');
-
-//get_mathjs
-
-Route::get('/charles/get', function() {
-  return ["sample" => 200];
-});
-
-Route::post('/charles/post', function() {
-  return ["sample" => 200];
-});
 
 Auth::routes();
 

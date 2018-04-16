@@ -12,30 +12,16 @@ use DB;
 
 class QuestionController extends Controller
 {
-    //
+    //          nk
 
     public function index() {
 
-      // $h =  new HelperController("pogi");
-
-      // dd($h->get_sample_a("charles nga ay"));
-
       $exists = Storage::disk('s3')->exists('buisness-element-4.jpg');
-
-      dd($exists);
 
       return view("admin.teacher.createQuestion");
     }
 
-    public function post_mathjs(Request $request) {
-      // $an = Answer::where("Id", 65)
-      // ->update(
-      //   array(
-      //     "answer" => $request->val
-      //   )
-      // );
-
-
+    public function post_mathjs(Request $request) { 
       $an = new Answer();
       $an->answer=$request->val;
 
@@ -72,10 +58,8 @@ class QuestionController extends Controller
           'Question' => $request->question
         );
         return redirect('/v1/teacher/create-answer');
-        // return view("admin.teacher.createAnswer", compact('question'));
       }
       return redirect('/v1/teacher/create-answer');
-      // return view("admin.teacher.createQuestion");
     }
 
     public function answer() {
@@ -103,36 +87,6 @@ class QuestionController extends Controller
     public function get_biology($id) {
       $b = Question::where("Id", (int)$id)->get(['subject_id', 'question']);
       return ["data" => $b];
-    }
-
-
-    //
-
-
-
-    public function question_api(Request $request) {
-      $q = new Question();
-      $q->subject_id = $request->subject;
-      $q->question = $request->question;
-
-      if($q->save()) {
-        $question = array(
-          "status" => 200,
-          'id' => $q->id
-        );
-
-        $this->add_answer($q->id, "A", $request->A, "NA");
-        $this->add_answer($q->id, "B", $request->B, "NA");
-        $this->add_answer($q->id, "C", $request->C, "NA");
-        $this->add_answer($q->id, "D", $request->D, "NA");
-      }
-      else {
-        $question = array(
-          "status" => 500,
-          'id' => 0
-        );
-      }
-      return $question;
     }
 
     public function add_answer($qid, $option, $answer, $r_answer) {

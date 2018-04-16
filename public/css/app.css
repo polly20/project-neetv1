@@ -91,6 +91,10 @@ article, aside, dialog, figcaption, figure, footer, header, hgroup, main, nav, s
   display: block;
 }
 
+.help-block {
+  color: #a94442;
+}
+
 body {
   margin: 0;
   font-family: "Nunito", sans-serif;
@@ -1765,6 +1769,13 @@ select.form-control:not([size]):not([multiple]) {
 select.form-control:focus::-ms-value {
   color: rgba(255, 255, 255, 0.85);
   background-color: transparent;
+}
+
+select option {
+  margin: 40px;
+  background: rgba(0, 0, 0, 0.3);
+  color: #fff;
+  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.4);
 }
 
 .form-control-file,
@@ -8423,6 +8434,7 @@ a.text-danger:focus, a.text-danger:hover {
 .card {
   margin-bottom: 2.3rem;
   box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
+  margin-top: 10px;
 }
 .card:not([class*="border-"]) {
   border: 0;
@@ -9220,6 +9232,22 @@ select::-ms-expand {
   box-shadow: none;
 }
 
+.modal-footer .flash-message{
+  width: -webkit-fill-available;
+}
+
+.modal-footer .flash-message .success{
+  color: #28a745;
+  font-size: 13px;
+  margin: 0;
+}
+
+.modal-footer .flash-message .failed{
+  color: #dc3545;
+  font-size: 13px;
+  margin: 0;
+}
+
 @media (min-width: 576px) {
   .modal {
     text-align: center;
@@ -9517,7 +9545,7 @@ textarea {
 
 @media (min-width: 1200px) {
   .content:not(.content--boxed):not(.content--full) {
-    padding: 102px 30px 0 280px;
+    padding: 85px 30px 0 280px;
   }
 }
 @media (min-width: 576px) and (max-width: 1199px) {
@@ -9689,9 +9717,9 @@ textarea {
 }
 
 .actions__item {
-  line-height: 35px;
+  line-height: 35px !important;
   text-align: center;
-  font-size: 1.55rem;
+  font-size: 1.55rem !important;
   cursor: pointer;
   color: rgba(255, 255, 255, 0.85);
   transition: background-color 300ms, color 300ms;
@@ -10523,7 +10551,7 @@ textarea {
 }
 
 .listview__item {
-  padding: 15px 2.2rem;
+  /*padding: 15px 2.2rem;  remove by MJT 04-12-2018 08:16PM */
   transition: background-color 300ms, border-color 300ms;
 }
 
@@ -11836,7 +11864,7 @@ textarea {
 }
 .q-a__stat > span {
   display: inline-block;
-  width: 70px;
+  width: 75px; /* OLD: 70px */
   border-radius: 2px;
   background-color: rgba(255, 255, 255, 0.08);
   text-align: center;
@@ -12908,7 +12936,8 @@ textarea {
   margin-top: 20px;
 }
 .dataTables_wrapper .table {
-  margin: 40px 0 20px;
+  /*margin: 40px 0 20px; OLD change by MJT 04-12-2018 08:19PM */
+  margin: 20px 0 20px;
 }
 
 .dataTables_length,
@@ -13649,6 +13678,28 @@ span.flatpickr-weekday {
   background-image: url("../img/calendar/december.jpg");
 }
 
+/* Added by MJT */
+.swal2-modal {
+  background: rgba(255, 255, 255, 0.96) !important;
+}
+
+.swal2-success-circular-line-left,
+.swal2-success-fix,
+.swal2-success-circular-line-right {
+  /*background: rgba(255, 255, 255, 0.96) !important;*/
+  background: transparent !important;
+}
+
+.swal2-success-line-tip .swal2-success-line-long{
+  border-color: #28a745 !important;
+}
+
+.swal2-success-ring{
+  border-color: #76b951 !important;
+}
+
+
+
 .swal2-modal {
   border-radius: 2px;
   padding: 2.5rem !important;
@@ -13680,6 +13731,12 @@ span.flatpickr-weekday {
 .swal2-modal .swal2-buttonswrapper .btn {
   margin: 0 3px;
   box-shadow: none !important;
+
+  /* Added by MJT */
+  background: rgba(88, 88, 88, 0.96) !important;
+  color: #ffffff !important;
+  padding: 5px 20px 5px 20px !important;
+  font-weight: bold !important;
 }
 
 .swal2-container.in {

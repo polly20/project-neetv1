@@ -61,7 +61,6 @@
 
            <div class="card-body">
                <h4 class="card-title">Multiple Answer Options</h4>
-               <h6 class="card-subtitle">Form control which supports multiple lines of text. Change 'rows' attribute as necessary.</h6>
            </div>
 
            <div id="div_answer_options">
